@@ -34,14 +34,19 @@ public class Prioridade {
         return this.pedidos.remove(this.pedidos.indexOf(menor));
     }
 
+    // 0 0 0 0 0 15 0
+
     public Pedido menorPedidoPrioridade2() {
         boolean isNotAll0 = true;
         for (Pedido p : this.pedidos) {
-            isNotAll0 = p.prazo == 0 && isNotAll0;
+            if (p.prazo != 0) {
+                isNotAll0 = false;
+                continue;
+            }
         }
 
         if (!isNotAll0) {
-            return this.pedidos.getFirst();
+            return this.pedidos.removeFirst();
         }
 
         Pedido menor = this.pedidos.getFirst();

@@ -8,9 +8,24 @@ public class App {
         Prioridade p = new Prioridade(pedidos);
         Esteira e = new Esteira();
 
+        System.out.println("-- Algoritmo prioridade --");
+
         long tempoInicial = System.nanoTime();
         while (p.hasProximoPedido()) {
-            e.empacotar(p.proximoPacote());
+            e.empacotar(p.proximoPacotePrioritario());
+            long tempoVolta = System.nanoTime() - tempoInicial;
+            System.out.println("Tempo gasto até então: " + (tempoVolta / 1_000_000_000d));
+        }
+
+        System.out.println("\n-- Algoritmo quantidade --");
+
+        LinkedList<Pedido> pedidos2 = montaListaPedidos("pedidos.txt");
+        Prioridade p2 = new Prioridade(pedidos2);
+        Esteira e2 = new Esteira();
+
+        tempoInicial = System.nanoTime();
+        while (p2.hasProximoPedido()) {
+            e2.empacotar(p2.proximoPacoteMenorQuantidade());
             long tempoVolta = System.nanoTime() - tempoInicial;
             System.out.println("Tempo gasto até então: " + (tempoVolta / 1_000_000_000d));
         }
@@ -32,10 +47,6 @@ public class App {
             Pedido pedido = getPedidoFromLine(line);
             pedidos.add(pedido);
         }
-
-        // while (leitor.hasNextLine()) {
-        // String line =
-        // }
 
         leitor.close();
         return pedidos;

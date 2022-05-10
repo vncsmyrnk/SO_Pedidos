@@ -1,4 +1,3 @@
-import java.util.Comparator;
 import java.util.LinkedList;
 
 public class Prioridade {
@@ -19,12 +18,17 @@ public class Prioridade {
      * proximoFila = pedido;
      * }
      */
-    public Pedido proximoPacote() {
+    public Pedido proximoPacotePrioritario() {
         System.out.println("\nFila de pedidos: " + pedidos.toString());
         return this.menorPedidoPrioridade();
     }
 
-    public Pedido menorPedidoTamanho() {
+    public Pedido proximoPacoteMenorQuantidade() {
+        System.out.println("\nFila de pedidos: " + pedidos.toString());
+        return this.menorPedidoQuantidade();
+    }
+
+    public Pedido menorPedidoQuantidade() {
         Pedido menor = this.pedidos
                 .stream()
                 .min((p1, p2) -> p1.quantidade - p2.quantidade)

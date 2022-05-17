@@ -1,0 +1,4 @@
+Urgência (1 empacotador): 12.111161853s
+Urgência (2 empacotador): 6.603882405s
+Quantidade (1 empacotador): 12.114535902s
+Quantidade (2 empacotador): 7.7112217s

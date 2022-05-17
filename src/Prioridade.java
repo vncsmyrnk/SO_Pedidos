@@ -1,31 +1,19 @@
+import java.time.LocalTime;
 import java.util.LinkedList;
 
 public class Prioridade {
 
-    private LinkedList<Pedido> pedidos;
+    protected LinkedList<Pedido> pedidos;
 
     public Prioridade(LinkedList<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
 
-    /*
-     * carregar nova lista ordenada por chave(definindo prioridade)
-     * ordenar nova lista após carregar (if else)
-     * 
-     * int prioridade = 99999;
-     * while (hasNextLine) {
-     * if (pedido.prioridade <= prioridade)
-     * proximoFila = pedido;
-     * }
-     */
-    public Pedido proximoPacotePrioritario() {
-        System.out.println("\nFila de pedidos: " + pedidos.toString());
+    public Pedido proximoPacote() {
+        if (this.isQuantidadeModeOn()) {
+            return this.menorPedidoQuantidade();
+        }
         return this.menorPedidoPrioridade();
-    }
-
-    public Pedido proximoPacoteMenorQuantidade() {
-        System.out.println("\nFila de pedidos: " + pedidos.toString());
-        return this.menorPedidoQuantidade();
     }
 
     public Pedido menorPedidoQuantidade() {
@@ -48,5 +36,16 @@ public class Prioridade {
 
     public boolean hasProximoPedido() {
         return !this.pedidos.isEmpty();
+    }
+
+    public boolean isQuantidadeModeOn() {
+        return LocalTime.now().getHour() <= 12;
+    }
+
+    public String getDescricao() {
+        if (this.isQuantidadeModeOn()) {
+            return "Prioridade por quantidade";
+        }
+        return "Prioridade por urgência";
     }
 }

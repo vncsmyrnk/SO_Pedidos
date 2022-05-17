@@ -3,32 +3,17 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class App {
+
     public static void main(String[] args) throws Exception {
-        LinkedList<Pedido> pedidos = montaListaPedidos("pedidos.txt");
+        String nomeArquivo = "pedidos.txt";
+
+        LinkedList<Pedido> pedidos = montaListaPedidos(nomeArquivo);
         Prioridade p = new Prioridade(pedidos);
-        Esteira e = new Esteira();
+        Empacotador e1 = new Empacotador(p, "Empacotador 1");
+        Empacotador e2 = new Empacotador(p, "Empacotador 2");
 
-        System.out.println("-- Algoritmo prioridade --");
-
-        long tempoInicial = System.nanoTime();
-        while (p.hasProximoPedido()) {
-            e.empacotar(p.proximoPacotePrioritario());
-            long tempoVolta = System.nanoTime() - tempoInicial;
-            System.out.println("Tempo gasto até então: " + (tempoVolta / 1_000_000_000d));
-        }
-
-        System.out.println("\n-- Algoritmo quantidade --");
-
-        LinkedList<Pedido> pedidos2 = montaListaPedidos("pedidos.txt");
-        Prioridade p2 = new Prioridade(pedidos2);
-        Esteira e2 = new Esteira();
-
-        tempoInicial = System.nanoTime();
-        while (p2.hasProximoPedido()) {
-            e2.empacotar(p2.proximoPacoteMenorQuantidade());
-            long tempoVolta = System.nanoTime() - tempoInicial;
-            System.out.println("Tempo gasto até então: " + (tempoVolta / 1_000_000_000d));
-        }
+        ControladorEmpacotadores ce = new ControladorEmpacotadores(e1, e2);
+        ce.executarEmpacotadores();
     }
 
     public static Pedido getPedidoFromLine(String line) {
